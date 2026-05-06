@@ -282,6 +282,18 @@ document.addEventListener("touchstart", function () {
     const audio = document.getElementById("bg-music");
     audio.play();
     }, { once: true });
+     const audio = document.getElementById("bg-music");
+      audio.volume = 0.1;
+
+      // حاول تشغيل الصوت تلقائياً
+      audio.play().catch(() => {
+        // إذا فشل التشغيل التلقائي، انتظر أول نقرة لتشغيله
+        const startAudio = () => {
+          audio.play();
+          document.removeEventListener("click", startAudio);
+        };
+        document.addEventListener("click", startAudio);
+      });
 </script>
 
 </html>
